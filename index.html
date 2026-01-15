@@ -49,13 +49,13 @@
         </div>
 
         <div id="play-game">
-          <button onclick="">Play Game?</button>
+          <button onclick="playGame()">Play Game?</button>
         </div>
         <div style="display: none" class="color-div">
           <h4>Pick a color</h4>
           <p style="display: none">Greate... now it's ruined!</p>
-          <input type="color" id="color-picker" onchange="" value="#0084ff" />
-          <button style="display: none" onclick="">Reset</button>
+          <input type="color" id="color-picker" onchange="changeColor()" value="#0084ff" />
+          <button style="display: none" onclick="resetColor()">Reset</button>
         </div>
       </section>
 
@@ -225,6 +225,44 @@
     </main>
 
     <footer>By <a>Bogdan Kosulin (add a link for github)</a></footer>
-    <script></script>
-  </body>
+    
+    <script>
+      //This is where the game logic is 
+      //1. select all html elemnts
+      const body = document.querySelector('body');
+      const colorInput = document.getElementById('color-picker');
+      const colorDiv = document.querySelector('.color-div');
+      const hiddenText = document.querySelector('.color-div p');
+      const resetBrn = document.querySelector('.color-div button');
+      const playBtn = document.getElementById('play-game');
+
+      //2. create the functions
+      function playGame()
+      {
+        colorDiv.style.display = 'block';
+        playBtn.style.display = 'none';
+      }
+      function changeColor()
+      {
+        const selectedColor = colorInput.value;
+        body.style.background = selectedColor;
+        resetBrn.style.display = 'block';
+        hiddenText.style.display = 'block';
+        colorInput.style.display = 'none';
+      }
+      function resetColor(){
+        const computedStyles = getComputedStyle(body);
+        const mainColor = computedStyles.getPropertyValue('--background-primary');
+        body.style.background = mainColor;
+
+        hiddenText.style.display = 'none';
+        resetBrn.style.background = 'none';
+        colorDiv.style.display = 'none';
+        colorInput.style.display = 'block';
+        playBtn.style.display = 'block';
+      }
+      //3. assign the functions 
+    </script>
+  
+</body>
 </html>
